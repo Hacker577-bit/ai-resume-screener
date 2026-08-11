@@ -224,6 +224,10 @@ function candidateRow(c) {
 }
 
 // ---------- Charts ----------
+// Read a CSS custom property so charts follow the active (light/dark) palette.
+const cssVar = (name) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
 function renderCharts(r) {
   if (typeof Chart === "undefined") return; // CDN blocked — skip gracefully
   const top = r.candidates.slice(0, 8);
@@ -239,7 +243,10 @@ function renderCharts(r) {
       labels: ["0–20", "20–40", "40–60", "60–80", "80–100"],
       datasets: [{
         data: buckets,
-        backgroundColor: ["#f87171", "#fb923c", "#fbbf24", "#a3e635", "#34d399"],
+        backgroundColor: [
+          cssVar("--dist-1"), cssVar("--dist-2"), cssVar("--dist-3"),
+          cssVar("--dist-4"), cssVar("--dist-5"),
+        ],
         borderRadius: 6,
       }],
     },
@@ -252,9 +259,9 @@ function renderCharts(r) {
     data: {
       labels: top.map((c) => truncate(c.candidate_name || c.filename, 14)),
       datasets: [
-        ds("Skills", top.map((c) => c.breakdown.skills), "#6366f1"),
-        ds("Similarity", top.map((c) => c.breakdown.similarity), "#22d3ee"),
-        ds("Keywords", top.map((c) => c.breakdown.keywords), "#a78bfa"),
+        ds("Skills", top.map((c) => c.breakdown.skills), cssVar("--series-1")),
+        ds("Similarity", top.map((c) => c.breakdown.similarity), cssVar("--series-2")),
+        ds("Keywords", top.map((c) => c.breakdown.keywords), cssVar("--series-3")),
       ],
     },
     options: { ...chartOpts("Score"), scales: stackScales() },
@@ -265,8 +272,8 @@ function ds(label, data, color) {
   return { label, data, backgroundColor: color, borderRadius: 4 };
 }
 function chartOpts(yTitle) {
-  const grid = "rgba(255,255,255,0.08)";
-  const tick = "#96a0be";
+  const grid = cssVar("--chart-grid");
+  const tick = cssVar("--chart-tick");
   return {
     responsive: true,
     plugins: { legend: { display: yTitle === "Score", labels: { color: tick, boxWidth: 12 } } },
@@ -277,8 +284,8 @@ function chartOpts(yTitle) {
   };
 }
 function stackScales() {
-  const grid = "rgba(255,255,255,0.08)";
-  const tick = "#96a0be";
+  const grid = cssVar("--chart-grid");
+  const tick = cssVar("--chart-tick");
   return {
     x: { ticks: { color: tick }, grid: { color: grid } },
     y: { beginAtZero: true, max: 100, ticks: { color: tick }, grid: { color: grid } },
@@ -433,6 +440,12 @@ function init() {
       if (state.results) renderTable();
     })
   );
+
+  // Recolor charts when the OS light/dark preference changes.
+  const scheme = window.matchMedia("(prefers-color-scheme: dark)");
+  scheme.addEventListener?.("change", () => {
+    if (state.results) renderCharts(state.results);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", init);
