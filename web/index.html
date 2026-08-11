@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Screener</title>
+  <meta name="description" content="Intelligent resume screening — extract, score, match, and rank candidates against a job description." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">🎯</span>
+      <div>
+        <h1>AI Resume Screener</h1>
+        <p class="tagline">Extract · Score · Match · Rank</p>
+      </div>
+    </div>
+    <div id="tier-badges" class="tier-badges" title="Active analysis tiers"></div>
+  </header>
+
+  <main class="container">
+    <!-- ============ INPUT PANEL ============ -->
+    <section class="panel input-panel" id="input-panel">
+      <div class="grid">
+        <div class="field">
+          <label for="jd">Job Description</label>
+          <textarea id="jd" rows="12" placeholder="Paste the full job description here — required skills, responsibilities, and qualifications…"></textarea>
+          <div class="jd-tools">
+            <button type="button" class="link-btn" id="sample-jd">Load sample JD</button>
+            <span id="jd-count" class="muted">0 chars</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Resumes <span class="muted">(PDF · DOCX · TXT)</span></label>
+          <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload resumes">
+            <div class="dz-inner">
+              <div class="dz-icon">📄</div>
+              <p><strong>Drag &amp; drop</strong> resumes here</p>
+              <p class="muted">or click to browse — multiple files supported</p>
+            </div>
+            <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md" hidden />
+          </div>
+          <ul id="file-list" class="file-list"></ul>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="screen-btn" class="btn primary" disabled>
+          <span class="btn-label">Screen Candidates</span>
+        </button>
+        <button id="clear-btn" class="btn ghost">Clear</button>
+      </div>
+      <div id="error-box" class="error-box" hidden></div>
+    </section>
+
+    <!-- ============ LOADING ============ -->
+    <section id="loading" class="panel loading" hidden>
+      <div class="spinner"></div>
+      <p id="loading-text">Analyzing resumes…</p>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section id="results" class="results" hidden>
+      <!-- Dashboard -->
+      <div class="dashboard">
+        <div class="stat-cards" id="stat-cards"></div>
+        <div class="charts">
+          <div class="panel chart-card">
+            <h3>Score Distribution</h3>
+            <canvas id="dist-chart" height="180"></canvas>
+          </div>
+          <div class="panel chart-card">
+            <h3>Top Candidates — Signal Breakdown</h3>
+            <canvas id="breakdown-chart" height="180"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ranked table -->
+      <div class="panel">
+        <div class="results-head">
+          <h2>Ranked Candidates <span id="result-count" class="pill"></span></h2>
+          <div class="export-btns">
+            <button class="btn small" id="export-csv">⬇ CSV</button>
+            <button class="btn small" id="export-pdf">⬇ PDF</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="rank-table" id="rank-table">
+            <thead>
+              <tr>
+                <th data-sort="rank">#</th>
+                <th data-sort="candidate_name">Candidate</th>
+                <th data-sort="score">Score ▾</th>
+                <th>Skill Match</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="rank-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Built with FastAPI · offline NLP + Groq LLM · runs fully offline when no key is set</span>
+  </footer>
+
+  <!-- Candidate detail modal -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

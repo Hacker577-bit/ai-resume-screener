@@ -1,0 +1,24 @@
+Bob Martinez
+Frontend Developer
+bob.martinez@example.com
+
+SUMMARY
+Creative frontend developer with 4 years of experience building responsive web
+applications. Strong in JavaScript, React, and CSS. Some exposure to Node.js.
+
+EXPERIENCE
+Frontend Developer, WebStudio (2021-2025)
+- Built single-page applications with React, TypeScript, and Tailwind CSS.
+- Integrated REST APIs and GraphQL endpoints.
+- Collaborated closely with designers; strong communication and teamwork.
+
+Junior Developer, StartupXYZ (2020-2021)
+- Maintained HTML/CSS/JavaScript marketing sites.
+- Used Git for version control.
+
+SKILLS
+JavaScript, TypeScript, React, Vue.js, HTML, CSS, Tailwind CSS, Node.js,
+REST API, GraphQL, Git, Communication, Teamwork
+
+EDUCATION
+B.S. Information Technology, UCLA

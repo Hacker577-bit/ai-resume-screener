@@ -1,0 +1,24 @@
+Carol Okafor
+Data Analyst
+carol.okafor@example.com
+
+SUMMARY
+Detail-oriented data analyst with 3 years of experience turning data into
+insights. Proficient in SQL, Python (pandas, NumPy), and data visualization.
+
+EXPERIENCE
+Data Analyst, RetailCo (2022-2025)
+- Built dashboards in Tableau and Power BI for executive reporting.
+- Wrote complex SQL queries against MySQL and PostgreSQL databases.
+- Automated data cleaning with Python pandas; basic statistics and A/B testing.
+
+Business Analyst Intern, FinServe (2021-2022)
+- Analyzed customer data using Excel and Python.
+- Presented findings to stakeholders; strong communication skills.
+
+SKILLS
+SQL, Python, Pandas, NumPy, Data Analysis, Statistics, Tableau, Power BI,
+MySQL, PostgreSQL, Communication, Problem Solving
+
+EDUCATION
+B.A. Economics, University of Lagos

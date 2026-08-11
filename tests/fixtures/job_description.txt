@@ -1,0 +1,14 @@
+Senior Python Engineer — AI / NLP
+
+We are hiring a Senior Python Engineer to build AI-powered document processing systems.
+
+Requirements:
+- 5+ years of Python development
+- Strong experience with NLP and machine learning (spaCy, scikit-learn, PyTorch)
+- Building and consuming REST APIs (FastAPI or Flask)
+- Experience with LLMs and prompt engineering
+- Familiarity with Docker, AWS, and CI/CD pipelines
+- SQL and PostgreSQL
+- Excellent communication and teamwork
+
+Nice to have: TypeScript, React, Kubernetes, data engineering (Airflow, Spark).

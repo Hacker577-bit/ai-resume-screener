@@ -1,0 +1,26 @@
+Alice Chen
+Senior Machine Learning Engineer
+alice.chen@example.com | github.com/alicechen
+
+SUMMARY
+Machine learning engineer with 7 years of Python experience building NLP and
+computer vision systems. Expert in spaCy, PyTorch, and scikit-learn. Shipped
+LLM-powered document processing pipelines serving millions of requests.
+
+EXPERIENCE
+Staff ML Engineer, Acme AI (2020-2025)
+- Built an NLP pipeline using spaCy and Hugging Face transformers for resume parsing.
+- Designed and deployed FastAPI microservices on AWS with Docker and Kubernetes.
+- Led a team of 5 engineers; mentored juniors and drove CI/CD adoption (Jenkins).
+- Optimized PostgreSQL queries and built ETL with Apache Airflow.
+
+Software Engineer, DataCorp (2018-2020)
+- Developed REST APIs in Python (Flask) and TypeScript/React frontends.
+- Implemented machine learning models with scikit-learn and TensorFlow.
+
+SKILLS
+Python, PyTorch, spaCy, scikit-learn, NLP, LLMs, FastAPI, Docker, Kubernetes,
+AWS, PostgreSQL, SQL, Airflow, Git, CI/CD, Leadership, Communication
+
+EDUCATION
+M.S. Computer Science, Stanford University

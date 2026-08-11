@@ -1,0 +1,37 @@
+# Full/local dependency set — install on Python 3.13 (`py -3.13`).
+# Rich offline (Tier 2) + LLM (Tier 3) all enabled locally.
+
+# --- Web framework ---
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+jinja2>=3.1
+pydantic>=2.7
+pydantic-settings>=2.3
+
+# --- Document extraction ---
+pdfplumber>=0.11
+python-docx>=1.1
+
+# --- Offline NLP / scoring ---
+rapidfuzz>=3.9
+scikit-learn>=1.5
+numpy>=1.26
+spacy>=3.7
+
+# --- Export ---
+reportlab>=4.2
+
+# --- AI engines ---
+groq>=0.11
+anthropic>=0.40
+
+# --- Config ---
+python-dotenv>=1.0
+
+# --- Tests ---
+pytest>=8.0
+
+# Optional OCR (requires system Tesseract binary — not installed by default):
+# pytesseract>=0.3.10
+# pdf2image>=1.17
