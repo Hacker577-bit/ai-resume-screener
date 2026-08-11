@@ -1,11 +1,11 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/index.py": {
-      "excludeFiles": "{tests/**,**/test_*.py,fixtures/**,.venv/**,requirements-local.txt,README.md,.env*}"
-    }
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+  "builds": [
+    { "src": "api/index.py", "use": "@vercel/python", "config": { "includeFiles": "app/**" } },
+    { "src": "web/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/index.py" },
+    { "src": "/", "dest": "/web/index.html" },
+    { "src": "/(.*)", "dest": "/web/$1" }
   ]
 }
