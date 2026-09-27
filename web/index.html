@@ -3,165 +3,234 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume Screener</title>
-  <meta name="description" content="Intelligent resume screening - extract, score, match, and rank candidates against a job description." />
+  <title>TF Tech Forge - ATS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <!-- Top Navbar -->
-  <header class="navbar">
-    <div class="nav-left">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-      <span class="nav-brand">AI Resume Screener</span>
-    </div>
-    <div class="nav-right">
-      <a href="#" class="nav-link">How it works</a>
-      <a href="#" class="nav-link">Pricing</a>
-      <button class="btn-dark nav-btn">Sign In</button>
-    </div>
-  </header>
-
-  <main class="page-container">
+  
+  <div class="app-layout">
     
-    <!-- Hero Section -->
-    <section class="hero">
-      <!-- Omitted "Made with AI" badge per rules -->
-      <h1>Screen Your Resume</h1>
-      <!-- Omitted em dashes per rules -->
-      <p class="subtitle">Get instant feedback on your resume's ATS compatibility, keyword optimization, and receive personalized suggestions to land your dream job.</p>
-    </section>
-
-    <!-- Main Input Card -->
-    <section class="main-card" id="input-panel">
-      <!-- Used standard rounded corners instead of pill-shaped per rules -->
-      <div class="card-tabs">
-        <div class="tab active">Upload Resume</div>
-        <div class="tab">Job Description (Optional)</div>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">TF</div>
+        <span class="brand-name">Tech Forge</span>
       </div>
       
-      <div class="card-content">
-        <div class="field" style="margin-bottom: 24px;">
-          <textarea id="jd" rows="4" placeholder="Paste the job description here..."></textarea>
-          <div class="jd-tools">
-            <button type="button" class="link-btn" id="sample-jd">Load sample JD</button>
-            <span id="jd-count" class="muted">0 chars</span>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Jobs</div>
+          <a href="#" class="nav-item active">Senior Frontend Developer</a>
+          <a href="#" class="nav-item">Backend Engineer</a>
+          <a href="#" class="nav-item">Full Stack Developer</a>
+        </div>
+        
+        <div class="nav-section" style="margin-top: 24px;">
+          <a href="#" class="nav-item" data-tab="dashboard">Dashboard</a>
+          <a href="#" class="nav-item" data-tab="candidates">Candidates</a>
+          <a href="#" class="nav-item" data-tab="upload">Upload Resumes</a>
+          <a href="#" class="nav-item" data-tab="analytics">Analytics</a>
+          <a href="#" class="nav-item" data-tab="create">Create Job</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-area">
+      
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search candidates, jobs..." />
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
+          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
+          <div class="user-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           </div>
         </div>
+      </header>
 
-        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload resumes">
-          <div class="dz-inner">
-            <div class="dz-icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            </div>
-            <p class="dz-title">Drop your resume here or click to browse</p>
-            <p class="dz-subtitle">Supports PDF, DOC, DOCX (Max 5MB)</p>
-          </div>
-          <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md" hidden />
-        </div>
-        <ul id="file-list" class="file-list"></ul>
+      <!-- Page Views container -->
+      <div class="page-content">
 
-        <div class="actions">
-          <button id="screen-btn" class="btn-dark full-width" disabled>
-            Screen Candidates
-          </button>
-          <button id="clear-btn" class="btn-ghost">Clear</button>
-        </div>
+        <!-- ERROR BOX -->
         <div id="error-box" class="error-box" hidden></div>
-      </div>
-    </section>
-
-    <!-- Feature Cards (From Design) -->
-    <!-- Omitted Emojis and Purple Gradients per rules -->
-    <section class="feature-cards">
-      <div class="feature-card">
-        <div class="f-icon blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        <!-- LOADING SPINNER -->
+        <div id="loading" class="loading-state" hidden>
+           <div class="spinner"></div>
+           <p id="loading-text">Analyzing resumes...</p>
         </div>
-        <h3>ATS Compatible</h3>
-        <p>Check if your resume passes Applicant Tracking Systems used by top companies.</p>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon grey">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+
+        <!-- =================== DASHBOARD TAB (Placeholder) =================== -->
+        <div id="tab-dashboard" class="tab-pane">
+           <h2>Dashboard</h2>
+           <p class="muted">Select a job from the sidebar or create a new one.</p>
         </div>
-        <h3>Automated Analysis</h3>
-        <p>Get intelligent insights on content quality, keyword optimization, and formatting.</p>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-        </div>
-        <h3>Instant Feedback</h3>
-        <p>Receive actionable recommendations to improve your resume in seconds.</p>
-      </div>
-    </section>
 
-    <!-- Fake metrics intentionally omitted per rules! -->
-
-    <!-- ============ LOADING ============ -->
-    <section id="loading" class="main-card loading-card" hidden>
-      <div class="spinner"></div>
-      <p id="loading-text">Analyzing resumes...</p>
-    </section>
-
-    <!-- ============ RESULTS ============ -->
-    <section id="results" class="results-section" hidden>
-      <div class="dashboard">
-        <div class="stat-cards" id="stat-cards"></div>
-        <div class="charts">
-          <div class="main-card chart-card">
-            <h3>Score Distribution</h3>
-            <canvas id="dist-chart" height="180"></canvas>
+        <!-- =================== CREATE JOB TAB =================== -->
+        <div id="tab-create" class="tab-pane">
+          <div class="page-header">
+            <div>
+              <h2>Create New Job</h2>
+              <p class="muted">Set up a new job posting to match candidates against</p>
+            </div>
           </div>
-          <div class="main-card chart-card">
-            <h3>Top Candidates Overview</h3>
-            <canvas id="breakdown-chart" height="180"></canvas>
+          
+          <div class="two-col-layout">
+            <div class="col-main">
+              <!-- Job Details -->
+              <div class="card">
+                <h3>Job Details</h3>
+                <p class="muted-small" style="margin-bottom:16px;">Basic information about the position</p>
+                <div class="form-grid">
+                  <div class="field">
+                    <label>Job Title</label>
+                    <input type="text" id="job-title" placeholder="e.g., Senior Frontend Developer" value="Senior Frontend Developer" />
+                  </div>
+                  <div class="field">
+                    <label>Department</label>
+                    <input type="text" placeholder="e.g., Engineering" />
+                  </div>
+                  <div class="field">
+                    <label>Location</label>
+                    <input type="text" placeholder="e.g., Remote, San Francisco" />
+                  </div>
+                  <div class="field">
+                    <label>Job Type</label>
+                    <select><option>Select type</option></select>
+                  </div>
+                  <div class="field full">
+                    <label>Experience Range</label>
+                    <select><option>Select range</option></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Job Description -->
+              <div class="card" style="margin-top:24px;">
+                <h3>Job Description</h3>
+                <p class="muted-small" style="margin-bottom:16px;">Paste the full job description. We'll auto-extract key skills.</p>
+                <textarea id="jd" rows="6" placeholder="Paste or write the job description here..."></textarea>
+                <button class="btn-ghost small" style="margin-top:12px;" id="sample-jd">✨ Auto-Extract Skills (Load Sample)</button>
+              </div>
+            </div>
+            
+            <div class="col-side">
+              <!-- Preview -->
+              <div class="card">
+                <h3>Preview</h3>
+                <p class="muted-small" style="margin-bottom:16px;">How candidates will see this job</p>
+                <div class="preview-title" id="preview-title">Job Title</div>
+                <div class="preview-sub">Department • Location</div>
+                <div class="preview-row"><span>Type</span> <span>Not Set</span></div>
+                <div class="preview-row"><span>Experience</span> <span>Not Set</span></div>
+              </div>
+
+              <!-- Matching Settings -->
+              <div class="card" style="margin-top:24px;">
+                <h3>Matching Settings</h3>
+                <div class="field" style="margin-top:16px;">
+                  <label>Auto-shortlist threshold</label>
+                  <select><option>85% and above</option></select>
+                </div>
+                <div class="field" style="margin-top:16px;">
+                  <label>Matching algorithm</label>
+                  <select><option>Hybrid (recommended)</option></select>
+                  <p class="muted-small" style="margin-top:8px;">These settings control how candidates are automatically scored and shortlisted.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bottom-actions">
+            <button class="btn-dark" id="save-job-btn">Save & Publish Job</button>
+            <button class="btn-ghost" style="border:none;">Save as Draft</button>
           </div>
         </div>
-      </div>
 
-      <div class="main-card">
-        <div class="results-head">
-          <h2>Ranked Candidates <span id="result-count" class="pill-rect"></span></h2>
-          <div class="export-btns">
-            <button class="btn-ghost small" id="export-csv">Download CSV</button>
-            <button class="btn-ghost small" id="export-pdf">Download PDF</button>
+        <!-- =================== UPLOAD RESUMES TAB =================== -->
+        <div id="tab-upload" class="tab-pane">
+          <div class="page-header">
+            <div>
+              <h2>Upload Resumes</h2>
+              <p class="muted">Upload candidate resumes for parsing and matching</p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 24px;">
+            <div id="dropzone" class="dropzone" tabindex="0">
+              <div class="dz-inner">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <p class="dz-title">Drop resumes here or click to select</p>
+                <p class="dz-subtitle">Accepts PDF, DOCX, TXT files • Max 5 MB per file</p>
+                <button class="btn-dark" style="margin-top: 16px;">Select Files</button>
+              </div>
+              <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md" hidden />
+            </div>
+            <ul id="file-list" class="file-list"></ul>
+            <div style="margin-top:24px;">
+              <button id="screen-btn" class="btn-dark" disabled>Run AI Screening</button>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>Tips for Best Results</h4>
+            <ul>
+              <li>Use text-based PDFs rather than scanned images for better parsing accuracy</li>
+              <li>Ensure resumes are well-formatted with clear section headers</li>
+              <li>File names should be descriptive (e.g., "John_Doe_Resume.pdf")</li>
+            </ul>
           </div>
         </div>
-        <div class="table-wrap">
-          <table class="rank-table" id="rank-table">
-            <thead>
-              <tr>
-                <th data-sort="rank">#</th>
-                <th data-sort="candidate_name">Candidate</th>
-                <th data-sort="score">Score</th>
-                <th>Skill Match</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody id="rank-body"></tbody>
-          </table>
+
+        <!-- =================== CANDIDATES TAB =================== -->
+        <div id="tab-candidates" class="tab-pane">
+          <div class="page-header" style="justify-content: space-between; align-items: flex-end;">
+            <div>
+              <h2>Candidates</h2>
+              <p class="muted" id="cand-count">0 candidates found</p>
+            </div>
+            <button class="btn-ghost small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters</button>
+          </div>
+          
+          <div id="candidates-list" class="candidates-list">
+             <!-- Rendered dynamically -->
+          </div>
         </div>
-      </div>
-      <div id="tier-badges" class="tier-badges" style="margin-top: 16px; justify-content: center;"></div>
-    </section>
 
-  </main>
+        <!-- =================== ANALYTICS TAB =================== -->
+        <div id="tab-analytics" class="tab-pane">
+          <div class="page-header" style="justify-content: space-between; align-items: flex-start;">
+            <div>
+              <h2>Analytics & Reports</h2>
+              <p class="muted">Insights and trends for Senior Frontend Developer</p>
+            </div>
+            <div class="export-btns">
+              <button class="btn-ghost small" id="export-pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export PDF</button>
+              <button class="btn-dark small" id="export-csv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export CSV</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>Top Skills in Applicants</h3>
+            <p class="muted-small" style="margin-bottom:24px;">Frequency of skills across all resumes</p>
+            <div class="chart-container" style="height: 400px; width: 100%;">
+              <canvas id="skills-chart"></canvas>
+            </div>
+          </div>
+        </div>
 
-  <footer class="site-footer">
-    <div class="footer-links">
-      <span>&copy; 2025 AI Resume Screener. Built for project.</span>
-    </div>
-    <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms & Conditions</a>
-    </div>
-  </footer>
+      </div> <!-- /page-content -->
+    </div> <!-- /main-area -->
+  </div> <!-- /app-layout -->
 
-  <!-- Candidate detail modal -->
+  <!-- Modal for full resume details (optional, replacing detail view) -->
   <div id="modal" class="modal" hidden>
     <div class="modal-card">
       <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
