@@ -11,32 +11,30 @@
 </head>
 <body>
   <div class="aurora" aria-hidden="true"></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <header class="site-header">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <h1>Resume Screener</h1>
+            <p class="tagline">Upload resumes and compare them against your job requirements automatically.</p>
+          </div>
+        </div>
+        <div id="tier-badges" class="tier-badges" title="Active analysis tiers"></div>
+      </header>
 
-  <header class="site-header">
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <div>
-        <h1>Resume Screener</h1>
-        <p class="tagline">Upload resumes and compare them against your job requirements automatically.</p>
-      </div>
-    </div>
-    <div id="tier-badges" class="tier-badges" title="Active analysis tiers"></div>
-  </header>
-
-  <main class="container">
-    <!-- ============ INPUT PANEL ============ -->
-    <section class="panel input-panel" id="input-panel">
-      <div class="grid">
+      <section class="input-panel" id="input-panel">
         <div class="field">
           <label for="jd">Job Description</label>
-          <textarea id="jd" rows="12" placeholder="Paste the full job description here - required skills, responsibilities, and qualifications..."></textarea>
+          <textarea id="jd" rows="10" placeholder="Paste the full job description here - required skills, responsibilities, and qualifications..."></textarea>
           <div class="jd-tools">
             <button type="button" class="link-btn" id="sample-jd">Load sample JD</button>
             <span id="jd-count" class="muted">0 chars</span>
           </div>
         </div>
 
-        <div class="field">
+        <div class="field" style="margin-top: 24px;">
           <label>Resumes <span class="muted">(PDF · DOCX · TXT)</span></label>
           <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload resumes">
             <div class="dz-inner">
@@ -50,74 +48,84 @@
           </div>
           <ul id="file-list" class="file-list"></ul>
         </div>
-      </div>
 
-      <div class="actions">
-        <button id="screen-btn" class="btn primary" disabled>
-          <span class="btn-label">Screen Candidates</span>
-        </button>
-        <button id="clear-btn" class="btn ghost">Clear</button>
-      </div>
-      <div id="error-box" class="error-box" hidden></div>
-    </section>
+        <div class="actions">
+          <button id="screen-btn" class="btn primary" disabled style="flex: 1;">
+            <span class="btn-label">Screen Candidates</span>
+          </button>
+          <button id="clear-btn" class="btn ghost">Clear</button>
+        </div>
+        <div id="error-box" class="error-box" hidden></div>
+      </section>
 
-    <!-- ============ LOADING ============ -->
-    <section id="loading" class="panel loading" hidden>
-      <div class="spinner"></div>
-      <p id="loading-text">Analyzing resumes…</p>
-    </section>
+      <footer class="site-footer">
+        <div class="footer-links">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms &amp; Conditions</a>
+        </div>
+        <span>Built with FastAPI - offline NLP + Groq LLM - runs fully offline when no key is set</span>
+      </footer>
+    </aside>
 
-    <!-- ============ RESULTS ============ -->
-    <section id="results" class="results" hidden>
-      <!-- Dashboard -->
-      <div class="dashboard">
-        <div class="stat-cards" id="stat-cards"></div>
-        <div class="charts">
-          <div class="panel chart-card">
-            <h3>Score Distribution</h3>
-            <canvas id="dist-chart" height="180"></canvas>
-          </div>
-          <div class="panel chart-card">
-            <h3>Top Candidates - Signal Breakdown</h3>
-            <canvas id="breakdown-chart" height="180"></canvas>
+    <main class="main-content">
+      
+      <!-- Empty state before results -->
+      <section id="empty-state" class="empty-state panel">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <h2>Ready to Screen</h2>
+        <p class="muted">Awaiting your job description and candidate resumes on the left.</p>
+      </section>
+
+      <!-- ============ LOADING ============ -->
+      <section id="loading" class="panel loading" hidden>
+        <div class="spinner"></div>
+        <p id="loading-text">Analyzing resumes…</p>
+      </section>
+
+      <!-- ============ RESULTS ============ -->
+      <section id="results" class="results" hidden>
+        <!-- Dashboard -->
+        <div class="dashboard">
+          <div class="stat-cards" id="stat-cards"></div>
+          <div class="charts">
+            <div class="panel chart-card">
+              <h3>Score Distribution</h3>
+              <canvas id="dist-chart" height="180"></canvas>
+            </div>
+            <div class="panel chart-card">
+              <h3>Top Candidates - Signal Breakdown</h3>
+              <canvas id="breakdown-chart" height="180"></canvas>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ranked table -->
-      <div class="panel">
-        <div class="results-head">
-          <h2>Ranked Candidates <span id="result-count" class="pill"></span></h2>
-          <div class="export-btns">
-            <button class="btn small" id="export-csv">⬇ CSV</button>
-            <button class="btn small" id="export-pdf">⬇ PDF</button>
+        <!-- Ranked table -->
+        <div class="panel">
+          <div class="results-head">
+            <h2>Ranked Candidates <span id="result-count" class="pill"></span></h2>
+            <div class="export-btns">
+              <button class="btn small" id="export-csv">⬇ CSV</button>
+              <button class="btn small" id="export-pdf">⬇ PDF</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="rank-table" id="rank-table">
+              <thead>
+                <tr>
+                  <th data-sort="rank">#</th>
+                  <th data-sort="candidate_name">Candidate</th>
+                  <th data-sort="score">Score ▾</th>
+                  <th>Skill Match</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="rank-body"></tbody>
+            </table>
           </div>
         </div>
-        <div class="table-wrap">
-          <table class="rank-table" id="rank-table">
-            <thead>
-              <tr>
-                <th data-sort="rank">#</th>
-                <th data-sort="candidate_name">Candidate</th>
-                <th data-sort="score">Score ▾</th>
-                <th>Skill Match</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody id="rank-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms &amp; Conditions</a>
-    </div>
-    <span>Built with FastAPI - offline NLP + Groq LLM - runs fully offline when no key is set</span>
-  </footer>
+      </section>
+    </main>
+  </div>
 
   <!-- Candidate detail modal -->
   <div id="modal" class="modal" hidden>
