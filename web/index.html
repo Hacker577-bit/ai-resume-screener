@@ -3,31 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TF Tech Forge - ATS</title>
+  <title>Tech Forge ATS</title>
+  <meta name="description" content="AI-powered resume screening and candidate ranking platform." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  
+
   <div class="app-layout">
-    
+
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="logo">TF</div>
         <span class="brand-name">Tech Forge</span>
       </div>
-      
+
       <div class="sidebar-nav">
         <div class="nav-section">
           <div class="nav-section-title">Jobs</div>
-          <a href="#" class="nav-item active">Senior Frontend Developer</a>
-          <a href="#" class="nav-item">Backend Engineer</a>
-          <a href="#" class="nav-item">Full Stack Developer</a>
+          <div id="job-nav-list">
+            <span class="nav-item" style="opacity:0.4;pointer-events:none">No jobs yet</span>
+          </div>
         </div>
-        
+
         <div class="nav-section" style="margin-top: 24px;">
           <a href="#" class="nav-item" data-tab="dashboard">Dashboard</a>
           <a href="#" class="nav-item" data-tab="candidates">Candidates</a>
@@ -35,59 +36,70 @@
           <a href="#" class="nav-item" data-tab="analytics">Analytics</a>
           <a href="#" class="nav-item" data-tab="create">Create Job</a>
         </div>
+
+        <div class="sidebar-footer">
+          <a href="/privacy.html" class="nav-link-sm">Privacy Policy</a>
+          <a href="/terms.html" class="nav-link-sm">Terms & Conditions</a>
+        </div>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Main -->
     <div class="main-area">
-      
+
       <!-- Topbar -->
       <header class="topbar">
         <div class="search-bar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" placeholder="Search candidates, jobs..." />
+          <input id="search-input" type="text" placeholder="Search candidates, skills..." />
         </div>
         <div class="topbar-actions">
-          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
-          <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
-          <div class="user-avatar">
+          <button id="bell-btn" class="icon-btn" title="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </button>
+          <button class="icon-btn" title="Settings" onclick="switchTab('create')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </button>
+          <div class="user-avatar" title="Profile">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           </div>
         </div>
       </header>
 
-      <!-- Page Views container -->
       <div class="page-content">
-
-        <!-- ERROR BOX -->
         <div id="error-box" class="error-box" hidden></div>
-        <!-- LOADING SPINNER -->
         <div id="loading" class="loading-state" hidden>
-           <div class="spinner"></div>
-           <p id="loading-text">Analyzing resumes...</p>
+          <div class="spinner"></div>
+          <p>Analyzing resumes, please wait...</p>
         </div>
 
-        <!-- =================== DASHBOARD TAB (Placeholder) =================== -->
+        <!-- DASHBOARD -->
         <div id="tab-dashboard" class="tab-pane">
-           <h2>Dashboard</h2>
-           <p class="muted">Select a job from the sidebar or create a new one.</p>
+          <div class="page-header">
+            <div>
+              <h2>Dashboard</h2>
+              <p class="muted">Overview of your latest screening session</p>
+            </div>
+          </div>
+          <div id="dashboard-content">
+            <p class="muted">No results yet. <a href="#" onclick="switchTab('create');return false">Create a job</a> and screen candidates to see stats here.</p>
+          </div>
         </div>
 
-        <!-- =================== CREATE JOB TAB =================== -->
+        <!-- CREATE JOB -->
         <div id="tab-create" class="tab-pane">
           <div class="page-header">
             <div>
               <h2>Create New Job</h2>
-              <p class="muted">Set up a new job posting to match candidates against</p>
+              <p class="muted">Set up a job posting to match candidates against</p>
             </div>
           </div>
-          
+
           <div class="two-col-layout">
             <div class="col-main">
-              <!-- Job Details -->
               <div class="card">
                 <h3>Job Details</h3>
-                <p class="muted-small" style="margin-bottom:16px;">Basic information about the position</p>
+                <p class="muted-small" style="margin-bottom:20px">Basic information about the position</p>
                 <div class="form-grid">
                   <div class="field">
                     <label>Job Title</label>
@@ -103,58 +115,60 @@
                   </div>
                   <div class="field">
                     <label>Job Type</label>
-                    <select><option>Select type</option></select>
+                    <select><option value="">Select type</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Remote</option></select>
                   </div>
                   <div class="field full">
                     <label>Experience Range</label>
-                    <select><option>Select range</option></select>
+                    <select><option value="">Select range</option><option>0-1 years</option><option>1-3 years</option><option>3-5 years</option><option>5-8 years</option><option>8+ years</option></select>
                   </div>
                 </div>
               </div>
 
-              <!-- Job Description -->
-              <div class="card" style="margin-top:24px;">
+              <div class="card" style="margin-top:24px">
                 <h3>Job Description</h3>
-                <p class="muted-small" style="margin-bottom:16px;">Paste the full job description. We'll auto-extract key skills.</p>
-                <textarea id="jd" rows="6" placeholder="Paste or write the job description here..."></textarea>
-                <button class="btn-ghost small" style="margin-top:12px;" id="sample-jd">✨ Auto-Extract Skills (Load Sample)</button>
+                <p class="muted-small" style="margin-bottom:16px">Paste the full job description. Skills will be auto-extracted for matching.</p>
+                <textarea id="jd" rows="8" placeholder="Paste or write the job description here..."></textarea>
+                <button class="btn-ghost small" id="sample-jd" style="margin-top:12px">Load Sample JD</button>
               </div>
             </div>
-            
+
             <div class="col-side">
-              <!-- Preview -->
               <div class="card">
                 <h3>Preview</h3>
-                <p class="muted-small" style="margin-bottom:16px;">How candidates will see this job</p>
-                <div class="preview-title" id="preview-title">Job Title</div>
-                <div class="preview-sub">Department • Location</div>
-                <div class="preview-row"><span>Type</span> <span>Not Set</span></div>
-                <div class="preview-row"><span>Experience</span> <span>Not Set</span></div>
+                <p class="muted-small" style="margin-bottom:16px">How this job will appear</p>
+                <div class="preview-title" id="preview-title">Senior Frontend Developer</div>
+                <div class="preview-sub">Department &bull; Location</div>
+                <div class="preview-row"><span>Type</span><span>Not Set</span></div>
+                <div class="preview-row"><span>Experience</span><span>Not Set</span></div>
               </div>
 
-              <!-- Matching Settings -->
-              <div class="card" style="margin-top:24px;">
+              <div class="card" style="margin-top:24px">
                 <h3>Matching Settings</h3>
-                <div class="field" style="margin-top:16px;">
+                <div class="field" style="margin-top:16px">
                   <label>Auto-shortlist threshold</label>
-                  <select><option>85% and above</option></select>
+                  <select><option>85% and above</option><option>75% and above</option><option>65% and above</option></select>
                 </div>
-                <div class="field" style="margin-top:16px;">
+                <div class="field" style="margin-top:16px">
                   <label>Matching algorithm</label>
-                  <select><option>Hybrid (recommended)</option></select>
-                  <p class="muted-small" style="margin-top:8px;">These settings control how candidates are automatically scored and shortlisted.</p>
+                  <select><option>Hybrid (recommended)</option><option>Skills only</option><option>Semantic only</option></select>
+                  <p class="muted-small" style="margin-top:8px">Controls how candidates are scored and shortlisted.</p>
                 </div>
+              </div>
+
+              <div class="info-card" style="margin-top:24px">
+                <h4>Tip</h4>
+                <p style="margin:0;font-size:13px;line-height:1.6">The more detailed your job description and skills list, the better the AI can match candidates. Include specific technologies and frameworks.</p>
               </div>
             </div>
           </div>
-          
+
           <div class="bottom-actions">
-            <button class="btn-dark" id="save-job-btn">Save & Publish Job</button>
-            <button class="btn-ghost" style="border:none;">Save as Draft</button>
+            <button id="save-job-btn" class="btn-dark">Save & Publish Job</button>
+            <button id="save-draft-btn" class="btn-ghost">Save as Draft</button>
           </div>
         </div>
 
-        <!-- =================== UPLOAD RESUMES TAB =================== -->
+        <!-- UPLOAD RESUMES -->
         <div id="tab-upload" class="tab-pane">
           <div class="page-header">
             <div>
@@ -163,19 +177,22 @@
             </div>
           </div>
 
-          <div class="card" style="margin-bottom: 24px;">
+          <div class="card" style="margin-bottom:24px">
             <div id="dropzone" class="dropzone" tabindex="0">
               <div class="dz-inner">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                 <p class="dz-title">Drop resumes here or click to select</p>
-                <p class="dz-subtitle">Accepts PDF, DOCX, TXT files • Max 5 MB per file</p>
-                <button class="btn-dark" style="margin-top: 16px;">Select Files</button>
+                <p class="dz-subtitle">Accepts PDF, DOCX, TXT files &bull; Max 5 MB per file</p>
+                <button class="btn-dark" style="margin-top:16px;pointer-events:none">Select Files</button>
               </div>
               <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md" hidden />
             </div>
+
             <ul id="file-list" class="file-list"></ul>
-            <div style="margin-top:24px;">
-              <button id="screen-btn" class="btn-dark" disabled>Run AI Screening</button>
+
+            <div style="margin-top:24px;display:flex;gap:12px;align-items:center">
+              <button id="screen-btn" class="btn-dark" disabled>Upload Resumes First</button>
+              <span id="upload-hint" class="muted" style="font-size:13px">Add a job description and resumes to begin</span>
             </div>
           </div>
 
@@ -189,51 +206,62 @@
           </div>
         </div>
 
-        <!-- =================== CANDIDATES TAB =================== -->
+        <!-- CANDIDATES -->
         <div id="tab-candidates" class="tab-pane">
-          <div class="page-header" style="justify-content: space-between; align-items: flex-end;">
+          <div class="page-header" style="justify-content:space-between;align-items:flex-start">
             <div>
               <h2>Candidates</h2>
               <p class="muted" id="cand-count">0 candidates found</p>
+              <div id="cand-stats-row" class="cand-stats-row"></div>
             </div>
-            <button class="btn-ghost small"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px; vertical-align:middle"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters</button>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="shortlisted">Shortlisted</button>
+                <button class="filter-btn" data-filter="rejected">Rejected</button>
+              </div>
+            </div>
           </div>
-          
+
           <div id="candidates-list" class="candidates-list">
-             <!-- Rendered dynamically -->
+            <p class="muted">Run AI Screening from the <a href="#" onclick="switchTab('upload');return false">Upload Resumes</a> tab to see candidates here.</p>
           </div>
         </div>
 
-        <!-- =================== ANALYTICS TAB =================== -->
+        <!-- ANALYTICS -->
         <div id="tab-analytics" class="tab-pane">
-          <div class="page-header" style="justify-content: space-between; align-items: flex-start;">
+          <div class="page-header" style="justify-content:space-between;align-items:flex-start">
             <div>
-              <h2>Analytics & Reports</h2>
-              <p class="muted">Insights and trends for Senior Frontend Developer</p>
+              <h2>Analytics &amp; Reports</h2>
+              <p class="muted">Insights and trends for <span id="analytics-job-title">your latest job</span></p>
             </div>
             <div class="export-btns">
-              <button class="btn-ghost small" id="export-pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export PDF</button>
-              <button class="btn-dark small" id="export-csv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export CSV</button>
+              <button class="btn-ghost small" id="export-pdf">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export PDF
+              </button>
+              <button class="btn-dark small" id="export-csv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Export CSV
+              </button>
             </div>
           </div>
-          
+
           <div class="card">
             <h3>Top Skills in Applicants</h3>
-            <p class="muted-small" style="margin-bottom:24px;">Frequency of skills across all resumes</p>
-            <div class="chart-container" style="height: 400px; width: 100%;">
+            <p class="muted-small" style="margin-bottom:24px">Frequency of skills across all resumes</p>
+            <div style="height:400px;width:100%">
               <canvas id="skills-chart"></canvas>
             </div>
           </div>
         </div>
 
-      </div> <!-- /page-content -->
-    </div> <!-- /main-area -->
-  </div> <!-- /app-layout -->
+      </div><!-- /page-content -->
+    </div><!-- /main-area -->
+  </div><!-- /app-layout -->
 
-  <!-- Modal for full resume details (optional, replacing detail view) -->
+  <!-- Candidate Detail Modal -->
   <div id="modal" class="modal" hidden>
     <div class="modal-card">
-      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <button class="modal-close" id="modal-close" aria-label="Close">&#x2715;</button>
       <div id="modal-body"></div>
     </div>
   </div>
